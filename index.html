@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고문정 변호사 | GO MUNJEONG LAW</title>
+
+  <!-- 웹 폰트 (Inter / Apple System Font Fallback) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS (어두운 분홍색 액센트 테마)
+       ========================================================================== */
+    :root {
+      /* Brand & Accent: Dark Pink / Deep Rose */
+      --color-primary: #b32d5e;
+      --color-primary-focus: #cc376e;
+      --color-primary-on-dark: #ff6e9f;
+      --color-on-primary: #ffffff;
+      --color-on-dark: #ffffff;
+
+      /* Surface Colors */
+      --color-canvas: #ffffff;
+      --color-canvas-parchment: #f5f5f7;
+      --color-surface-pearl: #fafafc;
+      --color-surface-tile-1: #272729;
+      --color-surface-tile-2: #2a2a2c;
+      --color-surface-black: #000000;
+      --color-surface-chip-translucent: rgba(210, 210, 215, 0.64);
+
+      /* Text & Ink */
+      --color-ink: #1d1d1f;
+      --color-body: #1d1d1f;
+      --color-body-on-dark: #ffffff;
+      --color-body-muted: #cccccc;
+      --color-ink-muted-80: #333333;
+      --color-ink-muted-48: #7a7a7a;
+
+      /* Hairlines */
+      --color-hairline: #e0e0e0;
+      --color-divider-soft: #f0f0f0;
+
+      /* Border Radius */
+      --radius-none: 0px;
+      --radius-sm: 8px;
+      --radius-md: 11px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+
+      /* Spacing Scale */
+      --spacing-xxs: 4px;
+      --spacing-xs: 8px;
+      --spacing-sm: 12px;
+      --spacing-md: 17px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-xxl: 48px;
+      --spacing-section: 80px;
+
+      /* Font Family */
+      --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Pretendard", sans-serif;
+      --font-text: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", "Pretendard", sans-serif;
+
+      /* Signature Product Drop Shadow */
+      --shadow-product: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-text);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+      color: var(--color-body);
+      background-color: var(--color-canvas);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ==========================================================================
+       3. TYPOGRAPHY
+       ========================================================================== */
+    .hero-display {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.07;
+      letter-spacing: -0.28px;
+    }
+
+    .display-lg {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .display-md {
+      font-family: var(--font-text);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+    }
+
+    .lead {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.14;
+      letter-spacing: 0.196px;
+    }
+
+    .tagline {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.19;
+      letter-spacing: 0.231px;
+    }
+
+    .body-strong {
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.24;
+      letter-spacing: -0.374px;
+    }
+
+    .caption {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.43;
+      letter-spacing: -0.224px;
+    }
+
+    .caption-strong {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.29;
+      letter-spacing: -0.224px;
+    }
+
+    .fine-print {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.12px;
+    }
+
+    /* ==========================================================================
+       4. BUTTONS & INTERACTION
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      user-select: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+    }
+
+    .btn:active, .configurator-chip:active {
+      transform: scale(0.95);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--color-primary-focus);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      font-size: 17px;
+      border-radius: var(--radius-pill);
+      padding: 11px 22px;
+    }
+
+    .btn-secondary-pill {
+      background-color: transparent;
+      color: var(--color-primary);
+      font-size: 17px;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-pill);
+      padding: 11px 22px;
+    }
+
+    .text-link {
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      font-size: 17px;
+    }
+    .text-link:hover { text-decoration: underline; }
+    .text-link-on-dark { color: var(--color-primary-on-dark); }
+
+    /* ==========================================================================
+       5. NAVIGATION BARS
+       ========================================================================== */
+    .global-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 44px;
+      background-color: var(--color-surface-black);
+      color: var(--color-on-dark);
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: -0.12px;
+    }
+
+    .nav-container {
+      max-width: 1068px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sub-nav-frosted {
+      position: sticky;
+      top: 44px;
+      z-index: 999;
+      height: 52px;
+      background-color: rgba(245, 245, 247, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+    }
+
+    .sub-nav-container {
+      max-width: 1068px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sub-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .sub-nav-links a {
+      color: var(--color-ink);
+      font-size: 14px;
+      transition: color 0.15s ease;
+    }
+    .sub-nav-links a:hover {
+      color: var(--color-primary);
+    }
+
+    /* ==========================================================================
+       6. FULL-BLEED SECTIONS (Alternating Tiles)
+       ========================================================================== */
+    .product-tile {
+      width: 100%;
+      padding: var(--spacing-section) var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tile-light { background-color: var(--color-canvas); color: var(--color-ink); }
+    .tile-dark { background-color: var(--color-surface-tile-1); color: var(--color-on-dark); }
+    .tile-parchment { background-color: var(--color-canvas-parchment); color: var(--color-ink); }
+
+    .tile-content {
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .tile-cta-group {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-sm);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .hero-portrait-frame {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      margin-top: var(--spacing-sm);
+    }
+
+    .hero-portrait-img {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-product);
+      display: block;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background-color: var(--color-canvas-parchment);
+    }
+
+    /* ==========================================================================
+       7. PROFILE SECTION (2번째 열)
+       ========================================================================== */
+    .profile-section {
+      background-color: var(--color-canvas-parchment);
+      padding: var(--spacing-section) var(--spacing-lg);
+    }
+
+    .profile-container {
+      max-width: 1068px;
+      margin: 0 auto;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xxl);
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: var(--spacing-xxl);
+      align-items: center;
+      background-color: var(--color-canvas);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xxl) var(--spacing-xl);
+    }
+
+    .profile-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-left-img {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-product);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background-color: var(--color-surface-pearl);
+      display: block;
+    }
+
+    .profile-left-info {
+      margin-top: var(--spacing-lg);
+    }
+
+    .profile-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    .career-block {
+      border-left: 2px solid var(--color-primary);
+      padding-left: var(--spacing-md);
+    }
+
+    .career-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .career-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .career-list li {
+      font-size: 17px;
+      color: var(--color-ink);
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .career-list li::before {
+      content: "•";
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    .quote-box {
+      background-color: var(--color-surface-pearl);
+      border: 1px solid var(--color-divider-soft);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-md);
+      font-size: 15px;
+      color: var(--color-ink-muted-80);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       8. CASES & JUDGMENT SECTION (승소 사례 및 실제 판결문 직접 노출)
+       ========================================================================== */
+    .cases-section {
+      background-color: var(--color-surface-tile-1);
+      color: var(--color-on-dark);
+      padding: var(--spacing-section) var(--spacing-lg);
+    }
+
+    .cases-container {
+      max-width: 1068px;
+      margin: 0 auto;
+    }
+
+    .cases-header {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto var(--spacing-xxl) auto;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .case-card {
+      background-color: var(--color-surface-tile-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      text-align: left;
+    }
+
+    .case-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background-color: rgba(179, 45, 94, 0.25);
+      color: var(--color-primary-on-dark);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 110, 159, 0.3);
+    }
+
+    .case-card h3 {
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--color-body-on-dark);
+      line-height: 1.3;
+    }
+
+    .case-card p {
+      font-size: 16px;
+      color: var(--color-body-muted);
+      line-height: 1.55;
+    }
+
+    /* 판결문 발췌 전용 카드 (Court Ruling Exhibit) */
+    .judgment-card {
+      background-color: #222224;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xxl) var(--spacing-xl);
+      text-align: left;
+      position: relative;
+    }
+
+    .judgment-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .judgment-tag {
+      color: var(--color-primary-on-dark);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .judgment-case-no {
+      font-size: 15px;
+      color: var(--color-body-muted);
+      font-weight: 400;
+    }
+
+    .judgment-ruling-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--color-body-on-dark);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .judgment-ruling-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: var(--spacing-lg);
+      padding-left: var(--spacing-xs);
+    }
+
+    .judgment-ruling-list li {
+      font-size: 17px;
+      font-weight: 600;
+      color: #4cd964;
+      line-height: 1.4;
+    }
+
+    .judgment-reason-box {
+      background-color: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid var(--color-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .judgment-reason-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary-on-dark);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .judgment-reason-text {
+      font-size: 16px;
+      color: #e0e0e0;
+      line-height: 1.6;
+      font-style: normal;
+    }
+
+    /* ==========================================================================
+       9. STORE UTILITY CARDS (Practice Areas)
+       ========================================================================= */
+    .store-section {
+      background-color: var(--color-canvas-parchment);
+      padding: var(--spacing-section) var(--spacing-lg);
+    }
+
+    .section-container {
+      max-width: 1068px;
+      margin: 0 auto;
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .store-utility-card {
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      border: 1px solid var(--color-hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-icon-wrap {
+      width: 100%;
+      height: 140px;
+      background-color: var(--color-surface-pearl);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-xs);
+      margin: var(--spacing-md) 0;
+    }
+
+    .configurator-chip {
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      font-size: 14px;
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      border: 1px solid var(--color-hairline);
+      cursor: pointer;
+    }
+
+    .configurator-chip.selected {
+      border: 2px solid var(--color-primary-focus);
+      padding: 7px 15px;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       10. FLOATING STICKY BAR
+       ========================================================================== */
+    .floating-sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: rgba(245, 245, 247, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      z-index: 998;
+      padding: 12px var(--spacing-xl);
+    }
+
+    .sticky-bar-content {
+      max-width: 1068px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ==========================================================================
+       11. MINIMAL CLEAN FOOTER
+       ========================================================================== */
+    .apple-footer {
+      background-color: var(--color-canvas-parchment);
+      color: var(--color-ink-muted-80);
+      padding: 40px var(--spacing-lg) 90px var(--spacing-lg);
+      border-top: 1px solid var(--color-hairline);
+    }
+
+    .footer-container {
+      max-width: 1068px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-legal {
+      color: var(--color-ink-muted-48);
+    }
+
+    /* ==========================================================================
+       12. RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 834px) {
+      .hero-display { font-size: 40px; }
+      .display-lg { font-size: 32px; }
+      .sub-nav-links { gap: 16px; }
+      .profile-grid { grid-template-columns: 1fr; gap: var(--spacing-xl); }
+      .cases-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero-display { font-size: 32px; }
+      .lead { font-size: 20px; }
+      .product-tile, .cases-section { padding: var(--spacing-xxl) var(--spacing-md); }
+      .tile-cta-group { flex-direction: column; width: 100%; max-width: 280px; }
+      .hero-portrait-img { max-width: 100%; }
+      .sub-nav-links { gap: 10px; font-size: 12px; }
+      .profile-grid { padding: var(--spacing-lg); }
+      .judgment-top { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Global Navigation -->
+  <header class="global-nav">
+    <div class="nav-container">
+      <a href="#" class="caption-strong" style="color: #ffffff; letter-spacing: 0.5px;">GO MUNJEONG LAW</a>
+    </div>
+  </header>
+
+  <!-- 2. Sub Navigation -->
+  <div class="sub-nav-frosted">
+    <div class="sub-nav-container">
+      <span class="tagline">고문정 변호사</span>
+      <div class="sub-nav-links">
+        <a href="#profile" class="caption">프로필</a>
+        <a href="#cases" class="caption">승소 사례 및 판결문</a>
+        <a href="#practices" class="caption">전문 분야</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 메인 1열: Hero Product Tile (Canvas Light: #ffffff) -->
+  <section class="product-tile tile-light" id="about">
+    <div class="tile-content">
+      <h1 class="hero-display">승소는 우연이 아닌, 철저한 계산입니다.</h1>
+      <p class="lead">가장 날카롭고 명쾌한 법률 전략.<br>고문정 변호사가 직접 사건의 본질을 파고듭니다.</p>
+      <div class="tile-cta-group">
+        <a href="https://share.crack.wrtn.ai/8zdd7s" target="_blank" rel="noopener noreferrer" class="btn btn-primary">1:1 비공개 상담 예약</a>
+        <a href="#practices" class="btn btn-secondary-pill">전문 분야 확인</a>
+      </div>
+  </section>
+
+  <!-- 4. 메인 2열: 프로필 파트 (Parchment: #f5f5f7) -->
+  <section class="profile-section" id="profile">
+    <div class="profile-container">
+      <div class="profile-header">
+        <h2 class="display-md">변호사 프로필</h2>
+        <p class="body" style="color: var(--color-ink-muted-80); margin-top: 4px;">정밀한 법리와 치밀한 증거 분석으로 신뢰를 입증합니다.</p>
+      </div>
+
+        <!-- 약력 및 주요 경력 -->
+        <div class="profile-right">
+          <!-- 학력 -->
+          <div class="career-block">
+            <div class="career-title">학력 (Education)</div>
+            <ul class="career-list">
+              <li>크랙대학교 법과대학 수석졸업</li>
+              <li>크랙대학교 법학전문대학원 수석졸업</li>
+            </ul>
+          </div>
+
+          <!-- 주요 경력 -->
+          <div class="career-block">
+            <div class="career-title">주요 경력 및 위촉 (Career & Experience)</div>
+            <ul class="career-list">
+              <li>서울경찰청 금융범죄수사대 법률자문위원</li>
+              <li>대한변호사협회 학술위원회 위원</li>
+              <li>전(前) 서울중앙지방법원 민사조정위원</li>
+            </ul>
+          </div>
+
+          <!-- 변론 철학 인용 박스 -->
+          <div class="quote-box">
+            "모든 기록과 사건 속에는 판결의 결과를 바꿀 단 하나의 결정적 단서가 존재합니다. 타협 없는 논리로 그 해답을 증명합니다."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 메인 3열: 승소 사례 및 실제 판결문 직접 노출 (Dark Tile: #272729) -->
+  <section class="cases-section" id="cases">
+    <div class="cases-container">
+      <div class="cases-header">
+        <h2 class="display-lg">타협 없는 논리와 데이터 기반의 변론.</h2>
+        <p class="lead" style="color: var(--color-body-muted); margin-top: var(--spacing-xs);">
+          복잡한 기업 분쟁, 형사 방어, 지식재산권 소송에서 작은 빈틈 하나 놓치지 않는 치밀함으로 판결을 이끌어냅니다.
+        </p>
+      </div>
+
+      <!-- 승소 사례 2열 카드 그리드 -->
+      <div class="cases-grid">
+        <!-- 사례 1: 쥐비게임즈 표절 소송 방어 -->
+        <div class="case-card">
+          <span class="case-badge">IT & 게임 소프트웨어 IP</span>
+          <h3>쥐비게임즈 표절 소송 방어</h3>
+          <p>
+            상대 게임사가 제기한 악의적인 소스코드 표절 의혹에 맞서, 수만 줄의 개발 코드를 직접 대조 분석하여 게임 엔진의 독창적 알고리즘을 법리적으로 입증한 승소 사례.
+          </p>
+        </div>
+
+        <!-- 사례 2: 아이돌 그룹 LUMINA 강혜린 저작권 분쟁 승소 -->
+        <div class="case-card">
+          <span class="case-badge">엔터테인먼트 & 음원 저작권</span>
+          <h3>아이돌 그룹 LUMINA 강혜린 저작권 분쟁 승소</h3>
+          <p>
+            상대측의 악의적인 표절 의혹 제기에 맞서, 여러 디지털 교차 검증으로 무고함을 입증한 승소 사례.
+          </p>
+        </div>
+      </div>
+
+      <!-- 실제 승소 판결문 발췌 카드 (Court Ruling Exhibit) -->
+      <div class="judgment-card">
+        <div class="judgment-top">
+          <span class="judgment-tag">LEGAL PRECEDENT · 대표 승소 판결문</span>
+          <span class="judgment-case-no">사건번호: 2024가합123456 경영권분쟁 및 손해배상</span>
+        </div>
+
+        <div style="margin-bottom: var(--spacing-md);">
+          <div class="judgment-ruling-title">주문 (판결 결과)</div>
+          <ul class="judgment-ruling-list">
+            <li>1. 원고의 청구를 모두 기각한다.</li>
+            <li>2. 소송 비용은 전부 원고가 부담한다.</li>
+          </ul>
+        </div>
+
+        <div class="judgment-reason-box">
+          <div class="judgment-reason-title">판결 이유 (발췌)</div>
+          <p class="judgment-reason-text">
+            "...피고 대리인(고문정 변호사)이 제출한 증거 제1호증 내지 제15호증과 변론 요지에 따르면, 원고의 주장은 독단적인 해석에 불과하여 법적 근거가 전혀 없으며, 이를 입증할 객관적 자료 또한 전무하다. 피고 대리인의 주장이 논리칙과 경험칙에 완벽히 부합하므로 원고의 청구는 이유 없어 기각한다."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Store / Practice Areas Grid (Parchment #f5f5f7) (전문 분야) -->
+  <section class="store-section" id="practices">
+    <div class="section-container">
+      <div style="margin-bottom: var(--spacing-xl);">
+        <h2 class="display-md">고문정 변호사 핵심 전문 분야</h2>
+        <p class="body" style="color: var(--color-ink-muted-80); margin-top: 4px;">사건 착수부터 종결까지 대표 변호사가 직접 전담합니다.</p>
+      </div>
+
+      <div class="store-grid">
+        <!-- Card 1 -->
+        <div class="store-utility-card">
+          <div>
+            <div class="card-icon-wrap">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="8" width="36" height="32" rx="4" fill="#ffffff" stroke="#1d1d1f" stroke-width="2"/>
+                <path d="M14 18H34M14 26H24" stroke="#b32d5e" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="body-strong">기업 자문 & 경영권 분쟁</h3>
+            <p class="caption" style="color: var(--color-ink-muted-80); margin-top: 6px;">계약 검토부터 주주간 분쟁, M&A 리스크 분석까지 기업의 법률 리스크를 선제적으로 통제합니다.</p>
+          </div>
+          <div>
+            <div class="chips-group">
+              <span class="configurator-chip selected">사전 자문</span>
+              <span class="configurator-chip">가처분</span>
+              <span class="configurator-chip">본안 소송</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+              <span class="body-strong">전담 배속</span>
+              <a href="https://share.crack.wrtn.ai/8zdd7s" target="_blank" rel="noopener noreferrer" class="text-link body-strong">상담 신청</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="store-utility-card">
+          <div>
+            <div class="card-icon-wrap">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path d="M24 6L8 14V24C8 33 15 41 24 44C33 41 40 33 40 24V14L24 6Z" fill="#ffffff" stroke="#1d1d1f" stroke-width="2"/>
+                <path d="M18 24L22 28L30 20" stroke="#b32d5e" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="body-strong">형사 방어 & 화이트칼라 범죄</h3>
+            <p class="caption" style="color: var(--color-ink-muted-80); margin-top: 6px;">수사 초기 단계 진술 대응부터 영장 실질심사, 공판 변론까지 치밀한 전략으로 무죄·불기소를 이끌어냅니다.</p>
+          </div>
+          <div>
+            <div class="chips-group">
+              <span class="configurator-chip selected">수사 대응</span>
+              <span class="configurator-chip">구속 방어</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+              <span class="body-strong">긴급 대응</span>
+              <a href="https://share.crack.wrtn.ai/8zdd7s" target="_blank" rel="noopener noreferrer" class="text-link body-strong">상담 신청</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="store-utility-card">
+          <div>
+            <div class="card-icon-wrap">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" fill="#ffffff" stroke="#1d1d1f" stroke-width="2"/>
+                <path d="M24 14V24L30 30" stroke="#b32d5e" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="body-strong">지식재산권 (IP) & 영업비밀</h3>
+            <p class="caption" style="color: var(--color-ink-muted-80); margin-top: 6px;">특허·상표권 침해 금지 청구 및 핵심 기술/영업비밀 유출 사건을 신속하고 정밀하게 해결합니다.</p>
+          </div>
+          <div>
+            <div class="chips-group">
+              <span class="configurator-chip">기술 침해</span>
+              <span class="configurator-chip selected">전직 금지</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+              <span class="body-strong">전문 검토</span>
+              <a href="https://share.crack.wrtn.ai/8zdd7s" target="_blank" rel="noopener noreferrer" class="text-link body-strong">상담 신청</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Floating Sticky Consultation Bar -->
+  <div class="floating-sticky-bar" id="consultation">
+    <div class="sticky-bar-content">
+      <div>
+        <span class="caption-strong" style="display: block;">고문정 변호사 1:1 대면 법률 자문</span>
+        <span class="body" style="font-size: 14px; color: var(--color-ink-muted-80);">비공개 대면 및 화상 자문 (사전 예약제)</span>
+      </div>
+      <a href="https://share.crack.wrtn.ai/8zdd7s" target="_blank" rel="noopener noreferrer" class="btn btn-primary">상담 일정 잡기</a>
+    </div>
+  </div>
+
+  <!-- 8. Minimal Clean Footer (사무소 위치) -->
+  <footer class="apple-footer" id="location">
+    <div class="footer-container">
+      <div class="footer-legal">
+        <p class="fine-print">
+          서울특별시 송파구 법원로XX길 A동 823호, 고문정 법률사무소 본사 | 직통 전화: 02-XXXX-XXXX | contact@gvh.com<br>
+          본 웹사이트에 게시된 모든 법률 정보는 참고용이며, 구체적인 사실관계에 따라 법적 결론이 다를 수 있으므로 개별적인 법률 상담 없이 법적 조치를 취하지 마십시오.<br>
+          Copyright © 2026 GO MUNJEONG LAW. All rights reserved.<br>
+          (본 사이트의 내용들은 모두 허구의 창작물입니다.)
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
